@@ -1,4 +1,4 @@
-
+import csv
 
 def write_file(filename, a_string):
     with open(filename, 'a') as file:
@@ -52,6 +52,8 @@ def read_column(filename, columnNo = 0):
     print(list_c)
 
 # read_column('readC.txt')
+
+###FIX THIS ONEEE
 word_list = ['better', 'honking']
 def countword(filename, words):
     count = 0
@@ -67,7 +69,12 @@ def countword(filename, words):
         #     count += 1
 
     print(count)
-countword('bigwords.txt', word_list)
+# countword('bigwords.txt', word_list)
 
 
+with open('Company_DB - Sheet1.csv') as db:
+    company_db = csv.reader(db)
+
+    for row in company_db:
+        print(row)
 
