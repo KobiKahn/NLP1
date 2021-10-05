@@ -1,0 +1,17 @@
+name, gender, age, start date, salary, Dept.
+John Smith, M, 45, 01/05/2010, 50000, Sales
+Mary Jones,F,35,03/05/2007,60000,Software
+Susan Brown,F,40,05/09/2013,40000,Management
+John Brown,M,42,07/11/2009,52000,Sales
+Mary James,F,35,09/13/2010,30000,Sales
+Susan Peters,F,40,11/15/2010,40000,Management
+Peter Ford,M,29,01/17/2010,50000,Sales
+Nancy Doyle,F,32,01/05/2011,5500
+Jessica Johnson,F,25,02/05/2010,32000,Management
+Larry Kelly,M,55,04/05/2014,52000,Sales
+Mary King,F,37,06/05/2012,38000,Sales
+Jean Brady,F,41,08/05/2010,45000,Management
+Carol Peterson,F,25,10/05/2010,30000,Management
+James King,M,62,12/07/2008,75000,Software
+Mary Farrel,F,34,03/05/2010,30000,Sales
+Elizabeth Stone,F,41,07/05/2009,68000,Software
