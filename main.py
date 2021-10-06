@@ -1,4 +1,5 @@
 import csv
+import math
 
 def write_file(filename, a_string):
     with open(filename, 'a') as file:
@@ -99,7 +100,7 @@ age_l = []
 start_l = []
 salary_l = []
 dept_l = []
-
+space = ' '
 x = 0
 with open('Company_DB - Sheet1.csv') as db:
     company_db = csv.reader(db)
@@ -107,22 +108,15 @@ with open('Company_DB - Sheet1.csv') as db:
     for row in company_db:
         x += 1
         if x != 1:
-            dict_g[f'{row[0] , row[1]}'] = row[2]
-            dict_a[f'{row[0] , row[1]}'] = row[3]
-            dict_start[f'{row[0] , row[1]}'] = row[4]
-            dict_s[f'{row[0] , row[1]}'] = row[5]
-            dict_d[f'{row[0] ,row[1]}'] = row[6]
+            name = (row[0] + ' ' + row[1])
+            dict_g[name] = row[2]
+            dict_a[name] = row[3]
+            dict_start[name] = row[4]
+            dict_s[name] = row[5]
+            dict_d[name] = row[6]
 
 
-
-# print(dict_g)
-# print(dict_a)
-# print(dict_start)
-# print(dict_s)
-# print(dict_d)
 question = int(input('		To get information about employee age type:  1\n		To get information about employee gender type:  2\n		To get information about employee salary type: 3\n		To get information about employee start date type: 4\n		To get information about employee department type: 5\n		To exit the database query type: 6\nWhat kind of information do you wish to extract : '))
-print()
-print()
 print()
 print()
 print()
@@ -131,7 +125,7 @@ if question == 6:
 
 elif question == 1:
 
-    print('Please have end age greater than start age')
+    print('PLEASE HAVE END GREATER THAN START')
     age_start = int(input('Input the start age: '))
     age_end = int(input('Input the end age: '))
     print()
@@ -141,16 +135,63 @@ elif question == 1:
 
     for key, value in dict_a.items():
         if int(value) >= age_start and int(value) <= age_end:
-            print(key, value)
+            print(f'{key}: {value}')
+            print()
 
-    # print(age_vals)
+elif question == 2:
+    print('PLEASE ENTER \'M\' OR \'F\' FOR EMPLOYEE GENDERS')
+    get_gender = input('SUBMIT: ')
+    get_gender = get_gender.upper()
+    print()
+
+    for key, value in dict_g.items():
+        if value == get_gender:
+            print(f'{key}: {value}')
+
+elif question == 3:
+    counter = 0
+    base = 0
+    average_salary = 0
+
+    min_base = math.inf
+    max_base = 0
+
+    q3 = input('Do you want to see the company salary statistics:(Y) or a specific range of salaries:(N)?\n Submit: ')
+    q3 = q3.lower()
+    for key, value in dict_s.items():
+        value = int(value)
+        counter += 1
+        base += value
+
+        if value > max_base:
+            max_base = value
+
+        if value < min_base:
+            min_base = value
+    average_salary = base / counter
+
+
+    if q3 == 'y':
+        print(f'Average salary: {average_salary}\nMaximum salary: {max_base}\nMinimum salary: {min_base}')
+
+    else:
+        lower = input('Enter the lowest salary you want to search: ')
+        higher = input('Enter the highest salary you want to search, [If you want to search for all salaries higher:(h) or if you want to search for all salaries lower:(l)]: ')
+
+        lower = int(lower)
+
+        for key, value in dict_s.items():
+
+
+        if higher == 'h':
+            pass
+
+        elif higher == 'l':
+            pass
+
+        else:
+            higher = int(higher)
 
 
 
 
-
-# print(dict_g)
-# print(dict_a)
-# print(dict_start)
-# print(dict_s)
-# print(dict_d)
