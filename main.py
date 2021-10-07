@@ -120,8 +120,15 @@ question = int(input('		To get information about employee age type:  1\n		To get
 print()
 print()
 print()
+
+#### EXIT
+
 if question == 6:
     print('Adios!')
+
+
+####### AGE
+
 
 elif question == 1:
 
@@ -138,6 +145,9 @@ elif question == 1:
             print(f'{key}: {value}')
             print()
 
+
+####### GENDER
+
 elif question == 2:
     print('PLEASE ENTER \'M\' OR \'F\' FOR EMPLOYEE GENDERS')
     get_gender = input('SUBMIT: ')
@@ -147,6 +157,9 @@ elif question == 2:
     for key, value in dict_g.items():
         if value == get_gender:
             print(f'{key}: {value}')
+
+
+###### SALARY
 
 elif question == 3:
     counter = 0
@@ -176,22 +189,66 @@ elif question == 3:
 
     else:
         lower = input('Enter the lowest salary you want to search: ')
-        higher = input('Enter the highest salary you want to search, [If you want to search for all salaries higher:(h) or if you want to search for all salaries lower:(l)]: ')
+        higher = input('Enter the highest salary you want to search or If you want to search for all salaries higher:(h) or if you want to search for all salaries lower:(l): ')
 
         lower = int(lower)
 
-        for key, value in dict_s.items():
-
 
         if higher == 'h':
-            pass
+            for key, value in dict_s.items():
+                if int(value) >= lower:
+                    print(f'{key}: {value}')
+
 
         elif higher == 'l':
-            pass
+            for key, value in dict_s.items():
+                if int(value) <= lower:
+                    print(f'{key}: {value}')
 
         else:
             higher = int(higher)
+            for key, value in dict_s.items():
+                if int(value) >= lower and int(value) <= higher:
+                    print(f'{key}: {value}')
 
 
+
+######## EMPLOYEE START DATE
+
+# elif question == 4:
+#     q4a = input('Input a start date in the format MM/DD/YYYY: ')
+#     q4a = [q4a]
+#
+#
+#     q4b = input('Do you want all dates PRIOR: B or AFTER: A      : ')
+#
+#     q4b = q4b.lower()
+#
+#     if q4b == 'b':
+#         for key, value in dict_start.items():
+#             for n in value.split():
+#                 print(n)
+
+
+# DEPARTMENT
+
+else:
+    q5 = input('Enter the department you want to search for: Sales, Software, or Management: ')
+    q5 = q5.lower()
+
+    if q5 == 'sales':
+        for key, value in dict_d.items():
+            if value.lower() == q5:
+                print(f'{key}: {value}')
+
+    if q5 == 'software':
+        for key, value in dict_d.items():
+            if value.lower() == q5:
+                print(f'{key}: {value}')
+
+    if q5 == 'management':
+        for key, value in dict_d.items():
+            if value.lower() == q5:
+                print(f'{key}: {value}')
 
 
