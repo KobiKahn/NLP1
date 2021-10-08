@@ -184,8 +184,24 @@ def answer_3():
 ########## QUESTION 4 FUNCTION
 
 
-# def answer_4():
+def months(x):
+    if x == 1 or x == 3 or x == 5 or x == 7 or x == 8 or x == 10 or x == 12:
+        days = 31
+    elif x == 4 or x == 6 or x == 9 or x == 11:
+        days = 30
+    else:
+        days = 28
+    return days
 
+
+def answer_4():
+    q4a = input('Input a start date in the format MM/DD/YYYY: ')
+    q4a = q4a.split('/')
+
+    q4b = input('Do you want all dates PRIOR: \'B\' or AFTER: \'A\'    : ')
+    q4b = q4b.lower()
+
+    #### MULTIPLY THE YEAR BY 365, MONTH BECOMES THE DAY AND THEN ADD THE DAY
 
 
 
@@ -284,21 +300,8 @@ elif question == 3:
 ######## EMPLOYEE START DATE
 
 elif question == 4:
-    q4a = input('Input a start date in the format MM/DD/YYYY: ')
-    q4a = q4a.split('/')
-    print(q4a)
+    answer_4()
 
-    q4b = input('Do you want all dates PRIOR: \'B\' or AFTER: \'A\'    : ')
-    q4b = q4b.lower()
-
-    if q4b == 'b':
-        for num in q4a:
-            if num == 0:
-                dig1 = num * 32
-            if num == 1:
-                dig2 = num
-            else:
-                dig3 = num
 
 
 
