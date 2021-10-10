@@ -193,15 +193,69 @@ def months(x):
         days = 28
     return days
 
+def calculate(month, day, year):
+
+    total_days = months(month) + day + (year*365)
+
+    return total_days
+
+
+
+
+def database_calculate(total_days, time):
+    counter = 0
+    months = 0
+    days = 0
+    years = 0
+    for key, value in dict_start.items():
+
+        for num in value.split('/'):
+            counter += 1
+            if counter == 1:
+                months = int(num)
+            elif counter == 2:
+                days = int(num)
+            else:
+                years = int(num)
+        database_val = calculate(months, days, years)
+
+        if time == 'b':
+            if database_val <= total_days:
+                print(f'{key}: {value}')
+        else:
+            if database_val >= total_days:
+                print(f'{key}: {value}')
+
+
 
 def answer_4():
+    counter = 0
+    months = 0
+    days = 0
+    years = 0
+
     q4a = input('Input a start date in the format MM/DD/YYYY: ')
     q4a = q4a.split('/')
 
     q4b = input('Do you want all dates PRIOR: \'B\' or AFTER: \'A\'    : ')
     q4b = q4b.lower()
 
-    #### MULTIPLY THE YEAR BY 365, MONTH BECOMES THE DAY AND THEN ADD THE DAY
+    for num in q4a:
+        counter += 1
+        if counter == 1:
+            months = int(num)
+        elif counter == 2:
+            days = int(num)
+        else:
+            years = int(num)
+
+    total_days = calculate(months, days, years)
+
+    database_calculate(total_days, q4b)
+
+
+
+
 
 
 
