@@ -1,91 +1,6 @@
 import csv
 import math
 
-# def write_file(filename, a_string):
-#     with open(filename, 'a') as file:
-#         file.write(a_string)
-#     return file
-# # write_file('test1.txt', 'ahfuefihfurwhusfgugf')
-#
-# def open_file(filename, mode = 'read'):
-#     with open(filename, 'r') as file:
-#         if mode == 'readlines':
-#             text = file.readlines()
-#         elif mode == 'read':
-#             text = file.read()
-#         else:
-#             text = file.readline()
-#     return text
-# # open = open_file('file1.txt')
-# # print(open)
-#
-# def print_file(filename):
-#     file_ = open_file(filename)
-#     print(file_)
-#
-# # print_file('file1.txt')
-#
-# def sumColumn(filename):
-#     total = 0
-#     read_int = open_file(filename, 'readlines')
-#     for int_ in read_int:
-#         total += int(int_)
-#     print(total)
-# # sumColumn('int.txt')
-#
-# def sum_all(filename):
-#     total = 0
-#     int_list = []
-#     read_int = open_file(filename)
-#     for num in read_int:
-#         if num.isdigit():
-#             total += int(num)
-#     print(total)
-#
-# # sum_all('int2.txt')
-#
-# def read_column(filename, columnNo = 0):
-#     list_c = []
-#     columns = open_file(filename, 'readlines')
-#     for row in columns:
-#         row = row.split()
-#         list_c.append(row[columnNo])
-#     print(list_c)
-#
-# # read_column('readC.txt')
-#
-# ###FIX THIS ONEEE
-# word_list = ['better', 'honking']
-# def countword(filename, words):
-#     count = 0
-#     word_list = open_file(filename)
-#     word_list = word_list.lower().split()
-#
-#     for word in word_list:
-#         for letter in word:
-#             if not letter.isalpha():
-#                 word_list.remove(letter)
-#     print(word_list)
-#         # if word == words[0]:
-#         #     count += 1
-#
-#     print(count)
-# # countword('bigwords.txt', word_list)
-
-
-
-
-
-
-
-
-
-
-
-
-##### PROJECT DATABASE!!!
-
-######## QUESTION 6 FUNCTION
 
 def answer_6():
     print('ADIOS!')
@@ -255,11 +170,6 @@ def answer_4():
 
 
 
-
-
-
-
-
 ########### ANSWER 5 FUNCTION
 
 def answer_sales(q5):
@@ -307,6 +217,7 @@ salary_l = []
 dept_l = []
 space = ' '
 x = 0
+
 with open('Company_DB - Sheet1.csv') as db:
     company_db = csv.reader(db)
 
@@ -320,48 +231,273 @@ with open('Company_DB - Sheet1.csv') as db:
             dict_s[name] = row[5]
             dict_d[name] = row[6]
 
+####################################################################################################################
+####################################################################################################################
+####################################################################################################################
+####################################################################################################################
 
-question = int(input('		To get information about employee age type:  1\n		To get information about employee gender type:  2\n		To get information about employee salary type: 3\n		To get information about employee start date type: 4\n		To get information about employee department type: 5\n		To exit the database query type: 6\nWhat kind of information do you wish to extract : '))
-print()
-print()
-print()
+valid = True
+
+valid_queries = ['department', 'age', 'gender', 'startdate', 'salary']
+
+valid_dict = {'department': ['==', '='], 'age' : ['>', '<', '==', '='] , 'gender' : ['==', '='], 'startdate': ['>', '<', '==', '='] , 'salary' : ['>', '<', '==', '=']}
+
+
+department_vals = ['sales', 'software', 'management']
+
+gender_vals = ['m', 'f']
+
+
+
+#### METHODS
+
+def finish(valid, user_query = []):
+
+    if valid:
+        new_userquery = user_query[0] + ' ' + user_query[1] + ' ' + user_query[2]
+        print(valid, new_userquery)
+        return new_userquery
+    else:
+        print(valid, user_query)
+
+
+
+def test1(token1,valid_queries):
+    global valid
+    for value in valid_queries:
+        if token1.lower() == value:
+            valid = True
+            break
+        else:
+            valid = False
+
+
+    return valid
+
+
+
+def test2(token1, token2, valid_dict):
+    global valid
+    value_c = 0
+
+    for key, value in valid_dict.items():
+        if key == token1.lower() and value_c == 0:
+            for val in value:
+                if val == token2:
+                    valid = True
+                    value_c = 1
+                    break
+
+                else:
+                    valid = False
+
+    return valid
+
+
+
+def test3(token1, token3, department_vals, gender_vals):
+    global valid
+
+    if token1.lower() == 'age' or token1.lower() == 'salary' or token1.lower() == 'startdate':
+        if token3.isdigit():
+            valid = True
+        else:
+            valid = False
+
+    elif token1.lower() == 'department':
+        for value in department_vals:
+            if value == token3.lower():
+                valid = True
+                break
+            else:
+                valid = False
+
+    else:
+        for value in gender_vals:
+            if value == token3.lower():
+                valid = True
+                break
+            else:
+                valid = False
+
+    return valid
+
+def transition(token4):
+    global valid
+
+    if token4.lower() == 'and':
+        pass
+
+    elif token4.lower() == 'or':
+        pass
+
+    else:
+        valid = False
+
+    return token4.lower()
+
+
+
+def main(valid_queries, valid_dict, department_vals):
+    global valid
+    global user_string_query
+    counter_or = 0
+    counter_and = 0
+
+    query = input('Find all records with: ')
+
+
+    user_query = query.split()
+    size = len(user_query)
+
+
+    if size == 7:
+
+        token1 = user_query[0]
+        token2 = user_query[1]
+        token3 = user_query[2]
+
+        token4 = user_query[3]
+
+        token5 = user_query[4]
+        token6 = user_query[5]
+        token7 = user_query[6]
+
+        if valid and transition(token4) == 'or':
+            if test1(token1, valid_queries) or test1(token5, valid_queries):
+                counter_or = 1
+                if test2(token1, token2, valid_dict) or test2(token5, token6, valid_dict):
+                    counter_or = 2
+                    if test3(token1, token3, department_vals, gender_vals) or test3(token5, token7, department_vals,gender_vals):
+                        counter_or = 3
+                        user_string_query = finish(valid, user_query)
+
+            if counter_or != 3:
+                finish(valid)
+
+
+
+        elif valid and transition(token4) == 'and':
+            if test1(token1, valid_queries) and test1(token5, valid_queries):
+                counter_and = 1
+                if test2(token1, token2, valid_dict) and test2(token5, token6, valid_dict):
+                    counter_and = 2
+                    if test3(token1, token3, department_vals, gender_vals) and test3(token5, token7,department_vals,gender_vals):
+                        counter_and = 3
+                        user_string_query = finish(valid, user_query)
+
+            if counter_and != 3:
+                finish(valid)
+
+
+    elif size == 3:
+        size3_counter = 0
+        token1 = user_query[0]
+        token2 = user_query[1]
+        token3 = user_query[2]
+
+        if valid and test1(token1, valid_queries):
+            size3_counter = 1
+            pass
+        if valid and test2(token1, token2, valid_dict):
+            size3_counter = 2
+            pass
+        if valid and test3(token1, token3, department_vals, gender_vals):
+            size3_counter = 3
+            user_string_query = finish(valid, user_query)
+
+        if size3_counter != 3:
+            finish(valid)
+    else:
+        print('ERROR WITH THE LENGTH OF QUERY')
+        valid = False
+        finish(valid)
+
+    if valid:
+
+        return user_string_query
+
+
+
+if main(valid_queries, valid_dict, department_vals):
+
+####################################################################################################################
+####################################################################################################################
+####################################################################################################################
+####################################################################################################################
+####################################################################################################################
+
+
+
+
+
+
+
+
+
+
+##### PROJECT DATABASE!!!
+
+######## QUESTION 6 FUNCTION
+
+
+
+
+
+# question = int(input('		To get information about employee age type:  1\n		To get information about employee gender type:  2\n		To get information about employee salary type: 3\n		To get information about employee start date type: 4\n		To get information about employee department type: 5\n		To exit the database query type: 6\nWhat kind of information do you wish to extract : '))
 
 #### EXIT
 
-if question == 6:
-    answer_6()
+# if question == 6:
+#     answer_6()
+#
+#
+# ####### AGE
+#
+#
+# elif question == 1:
+#     answer_1()
+#
+#
+# ####### GENDER
+#
+# elif question == 2:
+#     answer_2()
+#
+#
+# ###### SALARY
+#
+# elif question == 3:
+#     answer_3()
+#
+#
+# ######## EMPLOYEE START DATE
+#
+# elif question == 4:
+#     answer_4()
+#
+#
+#
+#
+# # DEPARTMENT
+#
+# elif question == 5:
+#     answer_5()
 
 
-####### AGE
-
-
-elif question == 1:
-    answer_1()
-
-
-####### GENDER
-
-elif question == 2:
-    answer_2()
-
-
-###### SALARY
-
-elif question == 3:
-    answer_3()
-
-
-######## EMPLOYEE START DATE
-
-elif question == 4:
-    answer_4()
 
 
 
 
-# DEPARTMENT
 
-elif question == 5:
-    answer_5()
+# record = {}
+# record['age'] = 55
+# token = ['age', '>', '45']
+# # query_str = "record["+"'" + token[0] + "'" + "]" + " " + token[1] + ' ' + token[2]
+# query_str = f'record[\'{token[0]}\'] {token[1]} {token[2]}'
+# print(query_str)
+#
+# if eval(query_str):
+#     print(record)
 
 
