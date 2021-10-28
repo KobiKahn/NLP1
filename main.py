@@ -1,6 +1,40 @@
 import csv
 import math
 
+#######################################################################
+#######################################################################
+######### MAIN DICT SECTION
+
+dict_g = {}
+dict_a = {}
+dict_start = {}
+dict_s = {}
+dict_d = {}
+
+gender_l = []
+age_l = []
+start_l = []
+salary_l = []
+dept_l = []
+space = ' '
+x = 0
+
+with open('Company_DB - Sheet1.csv') as db:
+    company_db = csv.reader(db)
+
+    for row in company_db:
+        x += 1
+        if x != 1:
+            name = (row[0] + ' ' + row[1])
+            dict_g[name] = row[2]
+            dict_a[name] = row[3]
+            dict_start[name] = row[4]
+            dict_s[name] = row[5]
+            dict_d[name] = row[6]
+
+#######################################################################
+#######################################################################
+
 
 def answer_6():
     print('ADIOS!')
@@ -202,35 +236,6 @@ def answer_5():
         answer_management(q5)
 
 
-######### MAIN DICT SECTION
-
-dict_g = {}
-dict_a = {}
-dict_start = {}
-dict_s = {}
-dict_d = {}
-
-gender_l = []
-age_l = []
-start_l = []
-salary_l = []
-dept_l = []
-space = ' '
-x = 0
-
-with open('Company_DB - Sheet1.csv') as db:
-    company_db = csv.reader(db)
-
-    for row in company_db:
-        x += 1
-        if x != 1:
-            name = (row[0] + ' ' + row[1])
-            dict_g[name] = row[2]
-            dict_a[name] = row[3]
-            dict_start[name] = row[4]
-            dict_s[name] = row[5]
-            dict_d[name] = row[6]
-
 ####################################################################################################################
 ####################################################################################################################
 ####################################################################################################################
@@ -419,76 +424,23 @@ def main(valid_queries, valid_dict, department_vals):
 
 
 
-if main(valid_queries, valid_dict, department_vals):
+main_query = main(valid_queries, valid_dict, department_vals)
+main_query = main_query.split()
+
+record = {}
+record['Dept.'] = main_query[0]
+
+
+for item in valid_queries:
+    equation = f"record[{'main_query[0]'} {main_query}]"
+    if eval(equation):
+        print('hi')
 
 ####################################################################################################################
 ####################################################################################################################
 ####################################################################################################################
 ####################################################################################################################
 ####################################################################################################################
-
-
-
-
-
-
-
-
-
-
-##### PROJECT DATABASE!!!
-
-######## QUESTION 6 FUNCTION
-
-
-
-
-
-# question = int(input('		To get information about employee age type:  1\n		To get information about employee gender type:  2\n		To get information about employee salary type: 3\n		To get information about employee start date type: 4\n		To get information about employee department type: 5\n		To exit the database query type: 6\nWhat kind of information do you wish to extract : '))
-
-#### EXIT
-
-# if question == 6:
-#     answer_6()
-#
-#
-# ####### AGE
-#
-#
-# elif question == 1:
-#     answer_1()
-#
-#
-# ####### GENDER
-#
-# elif question == 2:
-#     answer_2()
-#
-#
-# ###### SALARY
-#
-# elif question == 3:
-#     answer_3()
-#
-#
-# ######## EMPLOYEE START DATE
-#
-# elif question == 4:
-#     answer_4()
-#
-#
-#
-#
-# # DEPARTMENT
-#
-# elif question == 5:
-#     answer_5()
-
-
-
-
-
-
 
 # record = {}
 # record['age'] = 55
@@ -496,8 +448,6 @@ if main(valid_queries, valid_dict, department_vals):
 # # query_str = "record["+"'" + token[0] + "'" + "]" + " " + token[1] + ' ' + token[2]
 # query_str = f'record[\'{token[0]}\'] {token[1]} {token[2]}'
 # print(query_str)
-#
+
 # if eval(query_str):
 #     print(record)
-
-
