@@ -11,11 +11,8 @@ dict_start = {}
 dict_s = {}
 dict_d = {}
 
-gender_l = []
-age_l = []
-start_l = []
-salary_l = []
-dept_l = []
+dict_list = []
+
 space = ' '
 x = 0
 
@@ -25,12 +22,20 @@ with open('Company_DB - Sheet1.csv') as db:
     for row in company_db:
         x += 1
         if x != 1:
-            name = (row[0] + ' ' + row[1])
-            dict_g[name] = row[2]
-            dict_a[name] = row[3]
-            dict_start[name] = row[4]
-            dict_s[name] = row[5]
-            dict_d[name] = row[6]
+            name = (row[0] + '_' + row[1])
+
+            new_dict = {'name': name, 'gender': row[2], 'age': row[3], 'date': row[4], 'salary': row[5], 'dept': row[6]}
+
+
+            dict_list.append(new_dict)
+
+            # dict_g[name] = row[2]
+            # dict_a[name] = row[3]
+            # dict_start[name] = row[4]
+            # dict_s[name] = row[5]
+            # dict_d[name] = row[6]
+print(dict_list[0])
+
 
 #######################################################################
 #######################################################################
@@ -241,11 +246,40 @@ def answer_5():
 ####################################################################################################################
 ####################################################################################################################
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 valid = True
 
 valid_queries = ['department', 'age', 'gender', 'startdate', 'salary']
 
-valid_dict = {'department': ['==', '='], 'age' : ['>', '<', '==', '='] , 'gender' : ['==', '='], 'startdate': ['>', '<', '==', '='] , 'salary' : ['>', '<', '==', '=']}
+valid_dict = {'department': ['==', '='], 'age' : ['>', '<', '==', '=', '>=', '<='] , 'gender' : ['==', '='], 'startdate': ['>', '<', '==', '=', '>=', '<='] , 'salary' : ['>', '<', '==', '=', '>=', '<=']}
 
 
 department_vals = ['sales', 'software', 'management']
@@ -346,6 +380,7 @@ def transition(token4):
 def main(valid_queries, valid_dict, department_vals):
     global valid
     global user_string_query
+    token1 = 0
     counter_or = 0
     counter_and = 0
 
@@ -425,16 +460,17 @@ def main(valid_queries, valid_dict, department_vals):
 
 
 main_query = main(valid_queries, valid_dict, department_vals)
-main_query = main_query.split()
-
-record = {}
-record['Dept.'] = main_query[0]
+# main_query = main_query.split()
+print(main_query)
 
 
-for item in valid_queries:
-    equation = f"record[{'main_query[0]'} {main_query}]"
+for record in dict_list:
+    equation = f'{record[main_query[0]]} {main_query[1]} {main_query[2]}'
+    # print(equation)
+
     if eval(equation):
-        print('hi')
+        print(record)
+
 
 ####################################################################################################################
 ####################################################################################################################
