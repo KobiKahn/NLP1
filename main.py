@@ -5,15 +5,20 @@ import math
 #######################################################################
 ######### MAIN DICT SECTION
 
-dict_g = {}
-dict_a = {}
-dict_start = {}
-dict_s = {}
-dict_d = {}
+valid = True
 
 dict_list = []
 
-space = ' '
+valid_queries = []
+
+
+
+department_vals = []
+
+gender_vals = ['m', 'f']
+
+valid_dict = {}
+
 x = 0
 
 with open('Company_DB - Sheet1.csv') as db:
@@ -26,20 +31,32 @@ with open('Company_DB - Sheet1.csv') as db:
 
             new_dict = {'name': name, 'gender': row[2], 'age': row[3], 'date': row[4], 'salary': row[5], 'dept': row[6]}
 
+            valid_dict[new_dict.keys()] = new_dict
+######################################### FIXXXX THISSSSSSSSS
+            ######################################### FIXXXX THISSSSSSSSS
+            ######################################### FIXXXX THISSSSSSSSS
+            ######################################### FIXXXX THISSSSSSSSS
+            ######################################### FIXXXX THISSSSSSSSS
+
+            if x == 2:
+                valid_queries.append(new_dict.keys())
+
+            department_vals.append(new_dict['dept'])
 
             dict_list.append(new_dict)
 
-            # dict_g[name] = row[2]
-            # dict_a[name] = row[3]
-            # dict_start[name] = row[4]
-            # dict_s[name] = row[5]
-            # dict_d[name] = row[6]
-print(dict_list[0])
+valid_dict = {f'department': ['==', '='], 'a : ['>', '<', '==', '=', '>=', '<='] , 'gender' : ['==', '='], 'startdate': ['>', '<', '==', '=', '>=', '<='] , 'salary' : ['>', '<', '==', '=', '>=', '<=']}
+
+print(valid_queries)
+print(department_vals)
+
 
 
 #######################################################################
 #######################################################################
-
+#######################################################################
+#######################################################################
+#######################################################################
 
 def answer_6():
     print('ADIOS!')
@@ -250,44 +267,6 @@ def answer_5():
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-valid = True
-
-valid_queries = ['department', 'age', 'gender', 'startdate', 'salary']
-
-valid_dict = {'department': ['==', '='], 'age' : ['>', '<', '==', '=', '>=', '<='] , 'gender' : ['==', '='], 'startdate': ['>', '<', '==', '=', '>=', '<='] , 'salary' : ['>', '<', '==', '=', '>=', '<=']}
-
-
-department_vals = ['sales', 'software', 'management']
-
-gender_vals = ['m', 'f']
-
-
-
 #### METHODS
 
 def finish(valid, user_query = []):
@@ -304,6 +283,8 @@ def finish(valid, user_query = []):
 def test1(token1,valid_queries):
     global valid
     for value in valid_queries:
+        print(valid_queries)
+        print(value)
         if token1.lower() == value:
             valid = True
             break
@@ -464,12 +445,12 @@ main_query = main(valid_queries, valid_dict, department_vals)
 print(main_query)
 
 
-for record in dict_list:
-    equation = f'{record[main_query[0]]} {main_query[1]} {main_query[2]}'
+# for record in dict_list:
+    # equation = f'{record[main_query[0]]} {main_query[1]} {main_query[2]}'
     # print(equation)
 
-    if eval(equation):
-        print(record)
+    # if eval(equation):
+    #     print(record)
 
 
 ####################################################################################################################
