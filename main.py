@@ -23,31 +23,35 @@ with open('Company_DB - Sheet1.csv') as db:
     company_db = csv.reader(db)
 
     for row in company_db:
+
+
         x += 1
         if x == 1:
 
             valid_queries.append(row)
 
+            row[4] = row[4].split()
+            row[4] = row[4][0] + row[4][1]
+            # print(row[4])
+
         if x != 1:
             name = (row[0] + '_' + row[1])
 
-            new_dict = {'name': name, 'gender': row[2], 'age': row[3], 'date': row[4], 'salary': row[5], 'dept': row[6]}
+            new_dict = {'name': name, 'gender': row[2], 'age': row[3], 'startdate': row[4], 'salary': row[5], 'dept': row[6]}
 
-
-
-            # if x == 2:
-            #     valid_queries.append(new_dict.keys())
 
             department_vals.append(new_dict['dept'])
 
             dict_list.append(new_dict)
 
-valid_dict = {'department': ['==', '='], 'age' : ['>', '<', '==', '=', '>=', '<='] , 'gender' : ['==', '='], 'startdate': ['>', '<', '==', '=', '>=', '<='] , 'salary' : ['>', '<', '==', '=', '>=', '<=']}
+valid_dict = {'department': ['==', '='], 'age' : ['>', '<', '==', '=', '>=', '<='], 'gender' : ['==', '='], 'startdate': ['>', '<', '==', '=', '>=', '<='], 'salary' : ['>', '<', '==', '=', '>=', '<=']}
 
-# print(department_vals)
 
 for value in valid_queries:
     valid_queries = value
+
+
+
 
 
 #######################################################################
@@ -296,18 +300,17 @@ def test1(token1,valid_queries):
 def test2(token1, token2, valid_dict):
     global valid
     value_c = 0
+    while value_c == 0:
+        for key, value in valid_dict.items():
+            if key == token1.lower():
+                for val in value:
+                    if val == token2:
+                        valid = True
+                        print('hi')
+                        value_c = 1
 
-    for key, value in valid_dict.items():
-        if key == token1.lower() and value_c == 0:
-            for val in value:
-                if val == token2:
-                    valid = True
-                    value_c = 1
-                    break
-
-                else:
-                    print('true')
-                    valid = False
+                    else:
+                        valid = False
 
     return valid
 
@@ -316,11 +319,16 @@ def test2(token1, token2, valid_dict):
 def test3(token1, token3, department_vals, gender_vals):
     global valid
 
-    if token1.lower() == 'age' or token1.lower() == 'salary' or token1.lower() == 'startdate':
+    if token1.lower() == 'age' or token1.lower() == 'salary':
         if token3.isdigit():
             valid = True
         else:
             valid = False
+
+    elif token1.lower() == 'startdate':
+
+        print(token1)
+
 
     elif token1.lower() == 'department':
         for value in department_vals:
@@ -354,6 +362,7 @@ def transition(token4):
         valid = False
 
     return token4.lower()
+
 
 
 
