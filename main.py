@@ -11,8 +11,6 @@ dict_list = []
 
 valid_queries = []
 
-
-
 department_vals = []
 
 gender_vals = ['m', 'f']
@@ -26,30 +24,30 @@ with open('Company_DB - Sheet1.csv') as db:
 
     for row in company_db:
         x += 1
+        if x == 1:
+
+            valid_queries.append(row)
+
         if x != 1:
             name = (row[0] + '_' + row[1])
 
             new_dict = {'name': name, 'gender': row[2], 'age': row[3], 'date': row[4], 'salary': row[5], 'dept': row[6]}
 
-            valid_dict[new_dict.keys()] = new_dict
-######################################### FIXXXX THISSSSSSSSS
-            ######################################### FIXXXX THISSSSSSSSS
-            ######################################### FIXXXX THISSSSSSSSS
-            ######################################### FIXXXX THISSSSSSSSS
-            ######################################### FIXXXX THISSSSSSSSS
 
-            if x == 2:
-                valid_queries.append(new_dict.keys())
+
+            # if x == 2:
+            #     valid_queries.append(new_dict.keys())
 
             department_vals.append(new_dict['dept'])
 
             dict_list.append(new_dict)
 
-valid_dict = {f'department': ['==', '='], 'a : ['>', '<', '==', '=', '>=', '<='] , 'gender' : ['==', '='], 'startdate': ['>', '<', '==', '=', '>=', '<='] , 'salary' : ['>', '<', '==', '=', '>=', '<=']}
+valid_dict = {'department': ['==', '='], 'age' : ['>', '<', '==', '=', '>=', '<='] , 'gender' : ['==', '='], 'startdate': ['>', '<', '==', '=', '>=', '<='] , 'salary' : ['>', '<', '==', '=', '>=', '<=']}
 
-print(valid_queries)
-print(department_vals)
+# print(department_vals)
 
+for value in valid_queries:
+    valid_queries = value
 
 
 #######################################################################
@@ -282,9 +280,8 @@ def finish(valid, user_query = []):
 
 def test1(token1,valid_queries):
     global valid
+
     for value in valid_queries:
-        print(valid_queries)
-        print(value)
         if token1.lower() == value:
             valid = True
             break
@@ -309,6 +306,7 @@ def test2(token1, token2, valid_dict):
                     break
 
                 else:
+                    print('true')
                     valid = False
 
     return valid
@@ -352,6 +350,7 @@ def transition(token4):
         pass
 
     else:
+
         valid = False
 
     return token4.lower()
@@ -457,14 +456,3 @@ print(main_query)
 ####################################################################################################################
 ####################################################################################################################
 ####################################################################################################################
-####################################################################################################################
-
-# record = {}
-# record['age'] = 55
-# token = ['age', '>', '45']
-# # query_str = "record["+"'" + token[0] + "'" + "]" + " " + token[1] + ' ' + token[2]
-# query_str = f'record[\'{token[0]}\'] {token[1]} {token[2]}'
-# print(query_str)
-
-# if eval(query_str):
-#     print(record)
