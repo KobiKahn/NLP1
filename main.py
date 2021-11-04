@@ -61,210 +61,13 @@ valid_queries = dict_keys
 #######################################################################
 #######################################################################
 
-def answer_6():
-    print('ADIOS!')
-
-
-########## QUESTION 1 FUNCTION
-
-def answer_1():
-    print('PLEASE HAVE END AGE GREATER THAN START')
-    age_start = int(input('Input the start age: '))
-    age_end = int(input('Input the end age: '))
-    print()
-    print()
-
-    for key, value in dict_a.items():
-        if int(value) >= age_start and int(value) <= age_end:
-            print(f'{key}: {value}')
-            print()
-
-
-############ QUESTION 2 FUNCTION
-
-def answer_2():
-    print('PLEASE ENTER \'M\' OR \'F\' FOR EMPLOYEE GENDERS')
-    get_gender = input('SUBMIT: ')
-    get_gender = get_gender.upper()
-    print()
-
-    for key, value in dict_g.items():
-        if value == get_gender:
-            print(f'{key}: {value}')
-
-
-######### QUESTION 3 FUNCTION
-
-def answer_3y():
-    counter = 0
-    base = 0
-    min_base = math.inf
-    max_base = 0
-
-    for key, value in dict_s.items():
-        value = int(value)
-        counter += 1
-        base += value
-
-        if value > max_base:
-            max_base = value
-
-        if value < min_base:
-            min_base = value
-    average_salary = base / counter
-
-    print(f'Average salary: {average_salary}\nMaximum salary: {max_base}\nMinimum salary: {min_base}')
-
-
-def answer_3n():
-    lower = input('Enter the lowest salary you want to search: ')
-    higher = input('Enter the highest salary you want to search or If you want to search for all salaries higher:(h) or if you want to search for all salaries lower:(l): ')
-
-    lower = int(lower)
-
-    if higher == 'h':
-        for key, value in dict_s.items():
-            if int(value) >= lower:
-                print(f'{key}: {value}')
-
-
-    elif higher == 'l':
-        for key, value in dict_s.items():
-            if int(value) <= lower:
-                print(f'{key}: {value}')
-
-    else:
-        higher = int(higher)
-        for key, value in dict_s.items():
-            if int(value) >= lower and int(value) <= higher:
-                print(f'{key}: {value}')
-
-def answer_3():
-
-
-    q3 = input('Do you want to see the company salary statistics:(Y) or a specific range of salaries:(N)?\n Submit: ')
-    q3 = q3.lower()
-
-
-
-    if q3 == 'y':
-        answer_3y()
-
-    else:
-        answer_3n()
-
-
-
-########## QUESTION 4 FUNCTION
-
-
-def months(x):
-    if x == 1 or x == 3 or x == 5 or x == 7 or x == 8 or x == 10 or x == 12:
-        days = 31
-    elif x == 4 or x == 6 or x == 9 or x == 11:
-        days = 30
-    else:
-        days = 28
-    return days
 
 def calculate(month, day, year):
 
-    total_days = months(month) + day + (year*365)
+    total_days = year + month + day
 
     return total_days
 
-
-
-
-def database_calculate(total_days, time):
-    counter = 0
-    months = 0
-    days = 0
-    years = 0
-    for key, value in dict_start.items():
-
-        for num in value.split('/'):
-            counter += 1
-            if counter == 1:
-                months = int(num)
-            elif counter == 2:
-                days = int(num)
-            else:
-                years = int(num)
-        database_val = calculate(months, days, years)
-
-        if time == 'b':
-            if database_val <= total_days:
-                print(f'{key}: {value}')
-        else:
-            if database_val >= total_days:
-                print(f'{key}: {value}')
-
-
-
-def answer_4():
-    counter = 0
-    months = 0
-    days = 0
-    years = 0
-
-    q4a = input('Input a start date in the format MM/DD/YYYY: ')
-    q4a = q4a.split('/')
-
-    q4b = input('Do you want all dates PRIOR: \'B\' or AFTER: \'A\'    : ')
-    q4b = q4b.lower()
-
-    for num in q4a:
-        counter += 1
-        if counter == 1:
-            months = int(num)
-        elif counter == 2:
-            days = int(num)
-        else:
-            years = int(num)
-
-    total_days = calculate(months, days, years)
-
-    database_calculate(total_days, q4b)
-
-
-
-########### ANSWER 5 FUNCTION
-
-def answer_sales(q5):
-    for key, value in dict_d.items():
-        if value.lower() == q5:
-            print(f'{key}: {value}')
-
-def answer_software(q5):
-    for key, value in dict_d.items():
-        if value.lower() == q5:
-            print(f'{key}: {value}')
-
-def answer_management(q5):
-    for key, value in dict_d.items():
-        if value.lower() == q5:
-            print(f'{key}: {value}')
-
-
-def answer_5():
-    q5 = input('Enter the department you want to search for: Sales, Software, or Management: ')
-    q5 = q5.lower()
-
-    if q5 == 'sales':
-        answer_sales(q5)
-
-    if q5 == 'software':
-        answer_software(q5)
-
-    if q5 == 'management':
-        answer_management(q5)
-
-
-####################################################################################################################
-####################################################################################################################
-####################################################################################################################
-####################################################################################################################
 
 
 def evaluation(main_query, final_dict):
@@ -273,14 +76,32 @@ def evaluation(main_query, final_dict):
     token1 = main_query[0]
     token2 = main_query[1]
     token3 = main_query[2]
-    print(token1)
-    print(token2)
-    print(token3)
-    for item in final_dict:
-        print(item)
-        if eval(f'{item[token1]} {token2} {token3}'):
-            print(item)
-        # elif token1 == 'gender':
+
+
+
+
+    if token2 == '=':
+        token2 = '=='
+
+    if token1.lower() == 'startdate':
+        token3 = token3.split('/')
+        user_total = calculate(token3[0], token3[1], token3[2])
+
+        for item in final_dict:
+            data_date = item[token1]
+            # data_date.split('/')
+            print(data_date)
+            data_total = calculate(data_date[0], data_date[1], data_date[2])
+            # print(f'user: {user_total}')
+            print(f'comp: {data_total}')
+            # if eval(f'"{data_total}" {token2} "{user_total}"'):
+            #     print(item)
+
+    else:
+        for item in final_dict:
+            if eval(f'"{item[token1].lower()}" {token2} "{token3}"'):
+                print(item)
+
 
 
 
