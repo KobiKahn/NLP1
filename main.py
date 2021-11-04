@@ -8,8 +8,6 @@ import math
 
 
 def open_file():
-    new_dict = {}
-    x = -1
     dept_vals = []
     with open('Company_DB - Sheet1.csv') as db:
         company_db = list(csv.reader(db))
@@ -22,6 +20,7 @@ def open_file():
             new_dict = {}
             for num in range(len(dict_keys)):
                 if dict_keys[num] == 'start date':
+                    dict_keys[num] = 'startdate'
                     item_list = []
                     row[num] = row[num].split('/')
                     for item in row[num]:
@@ -29,14 +28,15 @@ def open_file():
                     row[num] = item_list
                     # print(row[num])
 
+                elif dict_keys[num] == 'gender':
+                    row[num] = row[num].lower()
                 elif dict_keys[num] == 'department':
 
                     dept_vals.append(row[num])
 
                 new_dict[dict_keys[num]] = row[num]
 
-                final_dict.append(new_dict)
-        # print(final_dict)
+            final_dict.append(new_dict)
 
         return dept_vals, final_dict, dict_keys
 
@@ -50,9 +50,10 @@ gender_vals = ['m', 'f']
 
 valid_queries = dict_keys
 
-# print(dept_vals, final_dict)
 
 
+
+# print(valid_queries, valid_dict, dept_vals)
 
 #######################################################################
 #######################################################################
@@ -266,6 +267,22 @@ def answer_5():
 ####################################################################################################################
 
 
+def evaluation(main_query, final_dict):
+    main_query = main_query.split()
+
+    token1 = main_query[0]
+    token2 = main_query[1]
+    token3 = main_query[2]
+    print(token1)
+    print(token2)
+    print(token3)
+    for item in final_dict:
+        print(item)
+        if eval(f'{item[token1]} {token2} {token3}'):
+            print(item)
+        # elif token1 == 'gender':
+
+
 
 
 
@@ -292,7 +309,6 @@ def test1(token1,valid_queries):
         else:
             valid = False
 
-
     return valid
 
 
@@ -306,8 +322,9 @@ def test2(token1, token2, valid_dict):
                 for val in value:
                     if val == token2:
                         valid = True
-                        print('hi')
                         value_c = 1
+                        break
+
 
                     else:
                         valid = False
@@ -318,6 +335,7 @@ def test2(token1, token2, valid_dict):
 
 def test3(token1, token3, department_vals, gender_vals):
     global valid
+    # print(department_vals)
 
     if token1.lower() == 'age' or token1.lower() == 'salary':
         if token3.isdigit():
@@ -326,13 +344,18 @@ def test3(token1, token3, department_vals, gender_vals):
             valid = False
 
     elif token1.lower() == 'startdate':
+        if len(token3.split('/')) == 3:
+            valid = True
+        else:
+            valid = False
 
-        print(token1)
+
 
 
     elif token1.lower() == 'department':
         for value in department_vals:
-            if value == token3.lower():
+
+            if value.lower() == token3.lower():
                 valid = True
                 break
             else:
@@ -369,6 +392,7 @@ def transition(token4):
 def main(valid_queries, valid_dict, department_vals):
     global valid
     global user_string_query
+    valid = True
     token1 = 0
     counter_or = 0
     counter_and = 0
@@ -448,9 +472,12 @@ def main(valid_queries, valid_dict, department_vals):
 
 
 
-main_query = main(valid_queries, valid_dict, final_dict)
+main_query = main(valid_queries, valid_dict, dept_vals)
 # main_query = main_query.split()
 print(main_query)
+
+if main_query:
+    evaluation(main_query, final_dict)
 
 
 # for record in dict_list:
