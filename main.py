@@ -5,52 +5,52 @@ import math
 #######################################################################
 ######### MAIN DICT SECTION
 
-valid = True
-
-dict_list = []
-
-valid_queries = []
-
-department_vals = []
-
-gender_vals = ['m', 'f']
-
-valid_dict = {}
-
-x = 0
-
-with open('Company_DB - Sheet1.csv') as db:
-    company_db = csv.reader(db)
-
-    for row in company_db:
 
 
-        x += 1
-        if x == 1:
+def open_file():
+    new_dict = {}
+    x = -1
+    dept_vals = []
+    with open('Company_DB - Sheet1.csv') as db:
+        company_db = list(csv.reader(db))
+        dict_keys = company_db[0]
+        item_list = []
+        final_dict = []
 
-            valid_queries.append(row)
+        for row in company_db[1:]:
+            # print(row)
+            new_dict = {}
+            for num in range(len(dict_keys)):
+                if dict_keys[num] == 'start date':
+                    item_list = []
+                    row[num] = row[num].split('/')
+                    for item in row[num]:
+                        item_list.append(item)
+                    row[num] = item_list
+                    # print(row[num])
 
-            row[4] = row[4].split()
-            row[4] = row[4][0] + row[4][1]
-            # print(row[4])
+                elif dict_keys[num] == 'department':
 
-        if x != 1:
-            name = (row[0] + '_' + row[1])
+                    dept_vals.append(row[num])
 
-            new_dict = {'name': name, 'gender': row[2], 'age': row[3], 'startdate': row[4], 'salary': row[5], 'dept': row[6]}
+                new_dict[dict_keys[num]] = row[num]
+
+                final_dict.append(new_dict)
+        # print(final_dict)
+
+        return dept_vals, final_dict, dict_keys
 
 
-            department_vals.append(new_dict['dept'])
 
-            dict_list.append(new_dict)
+dept_vals, final_dict, dict_keys = open_file()
 
 valid_dict = {'department': ['==', '='], 'age' : ['>', '<', '==', '=', '>=', '<='], 'gender' : ['==', '='], 'startdate': ['>', '<', '==', '=', '>=', '<='], 'salary' : ['>', '<', '==', '=', '>=', '<=']}
 
+gender_vals = ['m', 'f']
 
-for value in valid_queries:
-    valid_queries = value
+valid_queries = dict_keys
 
-
+# print(dept_vals, final_dict)
 
 
 
@@ -448,7 +448,7 @@ def main(valid_queries, valid_dict, department_vals):
 
 
 
-main_query = main(valid_queries, valid_dict, department_vals)
+main_query = main(valid_queries, valid_dict, final_dict)
 # main_query = main_query.split()
 print(main_query)
 
