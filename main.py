@@ -19,7 +19,7 @@ def open_file():
             # print(row)
             new_dict = {}
             for num in range(len(dict_keys)):
-                if dict_keys[num] == 'start date':
+                if dict_keys[num] == 'start date' or dict_keys[num] == 'startdate':
                     dict_keys[num] = 'startdate'
                     item_list = []
                     row[num] = row[num].split('/')
@@ -77,9 +77,6 @@ def evaluation(main_query, final_dict):
     token2 = main_query[1]
     token3 = main_query[2]
 
-
-
-
     if token2 == '=':
         token2 = '=='
 
@@ -89,13 +86,13 @@ def evaluation(main_query, final_dict):
 
         for item in final_dict:
             data_date = item[token1]
-            # data_date.split('/')
-            print(data_date)
+
+            # print(data_date)
             data_total = calculate(data_date[0], data_date[1], data_date[2])
             # print(f'user: {user_total}')
-            print(f'comp: {data_total}')
-            # if eval(f'"{data_total}" {token2} "{user_total}"'):
-            #     print(item)
+            # print(f'comp: {data_total}')
+            if eval(f'"{data_total}" {token2} "{user_total}"'):
+                print(item)
 
     else:
         for item in final_dict:
