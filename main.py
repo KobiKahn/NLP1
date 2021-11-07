@@ -6,6 +6,9 @@ import math
 ######### MAIN DICT SECTION
 
 
+if eval('1' ' ' '==' ' ' '1' and '3' ' ' '==' ' ' '2'):
+    print('hi')
+
 
 def open_file():
     dept_vals = []
@@ -99,6 +102,9 @@ def evaluation(main_query, final_dict):
             if eval(f'"{item[token1].lower()}" {token2} "{token3}"'):
                 print(item)
 
+    main_query = main(valid_queries, valid_dict, dept_vals)
+    if main_query:
+        evaluation(main_query, final_dict)
 
 
 
@@ -114,6 +120,7 @@ def finish(valid, user_query = []):
         return new_userquery
     else:
         print(valid, user_query)
+
 
 
 
@@ -221,8 +228,11 @@ def main(valid_queries, valid_dict, department_vals):
     user_query = query.split()
     size = len(user_query)
 
+    if query.lower() == 'exit':
+        valid = False
+        finish(valid)
 
-    if size == 7:
+    if size == 7 and valid:
 
         token1 = user_query[0]
         token2 = user_query[1]
@@ -249,6 +259,7 @@ def main(valid_queries, valid_dict, department_vals):
 
 
         elif valid and transition(token4) == 'and':
+
             if test1(token1, valid_queries) and test1(token5, valid_queries):
                 counter_and = 1
                 if test2(token1, token2, valid_dict) and test2(token5, token6, valid_dict):
@@ -256,12 +267,15 @@ def main(valid_queries, valid_dict, department_vals):
                     if test3(token1, token3, department_vals, gender_vals) and test3(token5, token7,department_vals,gender_vals):
                         counter_and = 3
                         user_string_query = finish(valid, user_query)
+                        print(user_string_query)
+
+
 
             if counter_and != 3:
                 finish(valid)
 
 
-    elif size == 3:
+    elif size == 3 and valid:
         size3_counter = 0
         token1 = user_query[0]
         token2 = user_query[1]
@@ -279,14 +293,17 @@ def main(valid_queries, valid_dict, department_vals):
 
         if size3_counter != 3:
             finish(valid)
-    else:
+
+        if valid:
+            return user_string_query
+
+    elif valid:
         print('ERROR WITH THE LENGTH OF QUERY')
         valid = False
         finish(valid)
 
-    if valid:
 
-        return user_string_query
+
 
 
 
