@@ -112,7 +112,6 @@ def evaluation(main_query, final_dict):
 
 
     else:
-        if and_:
             # print(main_query)
             list1 = main_query[0].split()
             list2 = main_query[1].split()
@@ -121,9 +120,11 @@ def evaluation(main_query, final_dict):
             token2 = list1[1]
             token3 = list1[2]
 
+
             token4 = list2[0]
             token5 = list2[1]
             token6 = list2[2]
+
 
             if token2 == '=':
                 token2 = '=='
@@ -131,47 +132,42 @@ def evaluation(main_query, final_dict):
             if token5 == '=':
                 token5 = '=='
 
-            if token1.lower() == 'startdate' and token4.lower() == 'startdate':
-                print('HIIII')
-                token3 = token3.split('/')
-                query1_total = calculate(token3[0], token3[1], token3[2])
+######## CHECK IF AND
+            if and_:
+                if token1.lower() == 'startdate' and token4.lower() == 'startdate':
 
-                token6 = token6.split('/')
-                query2_total = calculate(token6[0], token6[1], token6[2])
+                    token3 = token3.split('/')
+                    query1_total = calculate(token3[0], token3[1], token3[2])
 
+                    # print(query1_total)
 
-                for item in final_dict:
-                    data_date = item[token1]
+                    token6 = token6.split('/')
+                    query2_total = calculate(token6[0], token6[1], token6[2])
 
-                    # print(data_date)
-                    data_total = calculate(data_date[0], data_date[1], data_date[2])
-                    # print(f'user: {user_total}')
-                    # print(f'comp: {data_total}')
+                    # print(query2_total)
 
-                    # print(data_date)
+                    for item in final_dict:
+                        data_date = item[token1]
 
+                        data_total = calculate(data_date[0], data_date[1], data_date[2])
 
-                    if eval(f'"{data_total}" {token2} "{query1_total}"') and eval(f'"{data_total}" {token5} "{query2_total}"'):
-                        print(item)
-
-            # elif token1.lower() == 'startdate':
+                        if eval(f'"{data_total}" {token2} "{query1_total}"') and eval(f'"{data_total}" {token5} "{query2_total}"'):
+                            print('hii')
+                            print(item)
 
 
+                elif token4.lower() == 'startdate':
+                    token6 = token6.split('/')
+                    query2_total = calculate(token6[0], token6[1], token6[2])
+
+                    for item in final_dict:
+                        data_date2 = item[token4]
 
 
-            if token4.lower() == 'startdate':
-                token6 = token6.split('/')
-                query2_total = calculate(token6[0], token6[1], token6[2])
+                        data_total2 = calculate(data_date2[0], data_date2[1], data_date2[2])
 
-                for item in final_dict:
-                    data_date2 = item[token4]
-
-                    # print(data_date)
-                    data_total2 = calculate(data_date2[0], data_date2[1], data_date2[2])
-                    # print(f'user: {user_total}')
-                    # print(f'comp: {data_total}')
-                    if eval(f'"{data_total2}" {token2} "{query2_total}"'):
-                        print(item)
+                        if eval(f'"{data_total2}" {token2} "{query2_total}"'):
+                            print(item)
 
 
 
